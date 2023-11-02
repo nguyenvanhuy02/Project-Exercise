@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center align-items-center mt-2 mb-2">
+  <div class="boxed shadow h-100 ">
+    <form *ngIf="rfCreateForm" class="form" [formGroup]="rfCreateForm" (ngSubmit)="(createNewForm())">
+      <fieldset>
+        <legend>
+          <div class="mt-4 text-center">
+            <h1>Create Form</h1>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div style="margin-left: 0">
+                <a routerLink="" class="btn btn-primary" role="button">
+                  <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+              </div>
+            </div>
+          </div>
+        </legend>
+      </fieldset>
+      <div class="mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <label for="name" class="form-label ms-2">Name:</label>
+        </div>
+        <input id="name" type="text" class="form-control" formControlName="name"
+               [ngClass]="(rfCreateForm.controls['name'].touched)?
+                      rfCreateForm.controls['name'].invalid?'is-invalid':'is-valid':''"/>
+        <div *ngIf="rfCreateForm.controls['name'].hasError('required') &&
+                                     rfCreateForm.controls['name'].touched" style="color: red ; float:left;">
+          Name cannot be empty.
+        </div>
+        <div *ngIf="rfCreateForm.controls['name'].hasError('maxlength') &&
+                                     rfCreateForm.controls['name'].touched" style="color: red ; float:left;">
+          Name is too long (<256 characters).
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <label for="description" class="form-label ms-2">Description:</label>
+        </div>
+        <input id="description" type="text" class="form-control" formControlName="description"
+               [ngClass]="(rfCreateForm.controls['description'].touched)?
+                      rfCreateForm.controls['description'].invalid?'is-invalid':'is-valid':''"/>
+        <div *ngIf="rfCreateForm.controls['description'].hasError('required') &&
+                                     rfCreateForm.controls['description'].touched" style="color: red ; float:left;">
+          Description cannot be empty.
+        </div>
+        <div *ngIf="rfCreateForm.controls['description'].hasError('maxlength') &&
+                                     rfCreateForm.controls['description'].touched" style="color: red ; float:left;">
+          Description is too long (<3000 characters).
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <label  class="form-label ms-2">Upload Image:</label>
+        </div>
+        <input id="image"
+               #file
+               type="file"
+               multiple
+               (change)="showPreview($event)"
+               autocomplete="off" class="form-control"
+               formControlName="images"
+               accept="image/png, image/gif, image/jpeg">
+        <div class="invalid-feedback d-block"></div>
+
+        <div  style="color: gray; float: left;">
+          *Note: You must select an image.
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-left" >
+        <div  *ngFor="let img of selectedFile ,let i = index" style="margin-right: 8px">
+          <div style="position: relative">
+            <img class="d-block" style="height: 84px" src="{{img}}">
+            <span class="remove_img" (click)="deleteImageNew(i)"
+                  aria-label="Close">
+            <i class="fa-solid fa-trash"></i>
+          </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex mt-3 mb-2 w-100">
+        <button type="submit" style="margin-right: 5px"
+                class="btn btn-primary d-flex justify-content-center" [disabled]="isSubmitting">
+          <i class="fa-solid fa-spinner" *ngIf="isSubmitting"></i>
+          <p *ngIf="!isSubmitting">Add New</p>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
