@@ -8,4 +8,6 @@ This should include the ability to upload images (to Firebase) when creating a n
    +Description: Description cannot be empty, Description is too long (<3000 characters).
    +Upload Image:You must select an image.
 
+Link video: https://www.youtube.com/watch?v=pA2wACE6S_8
+
 
